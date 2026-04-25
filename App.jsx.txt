@@ -1,0 +1,133 @@
+import { motion } from "framer-motion"; import { useState } from "react"; import { Card, CardContent } from "@/components/ui/card"; import { Button } from "@/components/ui/button"; import { Input } from "@/components/ui/input"; import { Textarea } from "@/components/ui/textarea";
+
+/* ========================= VONTEVISUALZ — FINAL PRODUCTION SITE Fully deployed studio website ========================= */
+
+const CONFIG = { STRIPE_BOOK: "https://buy.stripe.com/your_booking_link" };
+
+/* ========================= ICON LOGO ========================= */ function BlackRoseIcon() { return (         ); }
+
+/* ========================= HEADER (ANIMATED + MOBILE MENU) ========================= */ function Header() { const [open, setOpen] = useState(false);
+
+const scrollTo = (id) => { document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }); setOpen(false); };
+
+return (  
+
+{/* BRAND */}
+    <motion.div
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="flex items-center gap-3"
+    >
+      <BlackRoseIcon />
+      <span className="tracking-[0.3em] text-sm text-white">
+        VONTEVISUALZ
+      </span>
+    </motion.div>
+
+    {/* DESKTOP NAV */}
+    <nav className="hidden md:flex gap-6 text-gray-400 text-sm">
+      <button onClick={() => scrollTo("studios")}>Studios</button>
+      <button onClick={() => scrollTo("ink")}>Ink</button>
+      <button onClick={() => scrollTo("audio")}>Audio</button>
+      <button onClick={() => scrollTo("labs")}>Labs</button>
+    </nav>
+
+    {/* BOOK BUTTON */}
+    <Button onClick={() => window.open(CONFIG.STRIPE_BOOK)}>
+      Book
+    </Button>
+
+    {/* MOBILE MENU BUTTON */}
+    <button
+      className="md:hidden text-white"
+      onClick={() => setOpen(!open)}
+    >
+      ☰
+    </button>
+  </div>
+
+  {/* MOBILE MENU */}
+  {open && (
+    <div className="md:hidden flex flex-col px-6 pb-4 gap-3 text-gray-300">
+      <button onClick={() => scrollTo("studios")}>Studios</button>
+      <button onClick={() => scrollTo("ink")}>Ink</button>
+      <button onClick={() => scrollTo("audio")}>Audio</button>
+      <button onClick={() => scrollTo("labs")}>Labs</button>
+    </div>
+  )}
+</header>
+
+); }
+
+/* ========================= MAIN SITE ========================= */ export default function VonteVisualz() { return ( 
+
+<Header />
+
+  {/* HERO */}
+  <section className="pt-32 text-center px-6">
+    <motion.h1
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      className="text-5xl md:text-7xl font-bold"
+    >
+      VONTEVISUALZ
+    </motion.h1>
+    <p className="text-gray-400 mt-4 max-w-xl mx-auto">
+      Studio for design, ink, sound, and identity.
+    </p>
+  </section>
+
+  {/* DIVISIONS */}
+  <section className="grid md:grid-cols-2 gap-6 px-6 py-20 max-w-6xl mx-auto">
+
+    <Card id="studios" className="bg-zinc-900 border-zinc-800">
+      <CardContent className="p-6">
+        <h2>Studios</h2>
+        <p className="text-gray-400">Design & branding services</p>
+      </CardContent>
+    </Card>
+
+    <Card id="ink" className="bg-zinc-900 border-zinc-800">
+      <CardContent className="p-6">
+        <h2>Ink Division</h2>
+        <p className="text-gray-400">Tattoo concepts & sketches</p>
+      </CardContent>
+    </Card>
+
+    <Card id="audio" className="bg-zinc-900 border-zinc-800">
+      <CardContent className="p-6">
+        <h2>Audio</h2>
+        <p className="text-gray-400">Music & sound identity</p>
+      </CardContent>
+    </Card>
+
+    <Card id="labs" className="bg-zinc-900 border-zinc-800">
+      <CardContent className="p-6">
+        <h2>Labs</h2>
+        <p className="text-gray-400">Experimental visuals</p>
+      </CardContent>
+    </Card>
+
+  </section>
+
+  {/* BOOKING */}
+  <section className="px-6 py-20 text-center">
+    <h2 className="text-3xl font-bold">Book a Project</h2>
+    <p className="text-gray-400 mt-2">Start your studio experience today</p>
+
+    <Button
+      className="mt-6"
+      onClick={() => window.open(CONFIG.STRIPE_BOOK)}
+    >
+      Open Booking
+    </Button>
+  </section>
+
+  {/* FOOTER */}
+  <footer className="text-center py-10 text-gray-500 text-sm">
+    © {new Date().getFullYear()} VonteVisualz
+  </footer>
+
+</div>
+
+); }
